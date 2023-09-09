@@ -1,0 +1,27 @@
+version: "3"
+services:
+  db:
+    networks:
+      - appnet
+    image: postgres:14-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "demo"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+  flyway:
+    networks:
+      - appnet
+    image: redgate/flyway
+    command: migrate -url=jdbc:postgresql://db:5432/demo -user=postgres -password=postgres
+    volumes:
+      - ./postgres/migrations:/flyway/sql
+    depends_on:
+      - db
+networks:
+  appnet:
+    driver: "bridge"
+volumes:
+  data:
+    driver: "local"
