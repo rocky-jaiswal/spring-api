@@ -24,9 +24,9 @@ import java.util.Map;
 
 @Log
 @RestController
-@RequestMapping("/v1/user-preferences")
+@RequestMapping("/v1/user-settings")
 @RequiredArgsConstructor
-public class UserPreferencesController {
+public class UserSettingsController {
 
     private final UserService userService;
     private final UserValidationService userValidationService;
